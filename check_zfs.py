@@ -48,8 +48,6 @@ def return_unknown(msg):
 POOL_NAME=None
 
 if __name__ == "__main__":
-    if POOL_NAME == None:
-        return_unknown("No pool specified.")
     if len(sys.argv) < 2:
         return_unknown("No pool name arg given.")
     POOL_NAME = sys.argv[1]
