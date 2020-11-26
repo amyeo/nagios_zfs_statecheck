@@ -62,6 +62,7 @@ if __name__ == "__main__":
         pool_state = None
         pool_errors = None
         pool_status = None
+        pool_action = None
         for line in cmd_output.split('\n'):
             if "state: " in line:
                 pool_state = line.split(': ')[1]
@@ -69,12 +70,16 @@ if __name__ == "__main__":
                 pool_errors = line.split(': ')[1]
             if "status: " in line:
                 pool_status = line.split(': ')[1]
+            if "action: " in line:
+                pool_action = line.split(': ')[1]
 
         if pool_status == None:
             pool_status = ""
         #determine state
         if pool_state == None:
             return_warning("Cannot get pool state.")
+        if pool_action != None:
+            return_warning("Pool {}, {}".format(pool_state,pool_action))
         if "ONLINE" in pool_state:
             return_ok("Status {}.".format(pool_state))
         else:
