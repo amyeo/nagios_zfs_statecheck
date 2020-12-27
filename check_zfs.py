@@ -80,15 +80,14 @@ if __name__ == "__main__":
             return_warning("Cannot get pool state.")
         if pool_action != None:
             return_warning("Pool {}, {}".format(pool_state,pool_action))
-        if "ONLINE" in pool_state:
-            return_ok("Status {}.".format(pool_state))
-        else:
+        if "ONLINE" not in pool_state:
             return_critical("State {}. Status: ".format(pool_state,pool_status))
         #parse status first, then errors
         if pool_errors == None:
              return_warning("Cannot parse errors.")
         if "No known data errors" not in pool_errors:
              return_critical("Errors present: {}".format(quote(pool_errors)))
-
+        
+        return_ok("Status {}.".format(pool_state))
     else:
         return_unknown("Command failed (stderr): ".format(quote(stderr.decode("utf-8"))))
